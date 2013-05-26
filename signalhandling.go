@@ -10,13 +10,13 @@ import (
 func main() {
   c := make(chan os.Signal, 1)
   signal.Notify(c, os.Interrupt, os.Kill)
-
-  time.Sleep(time.Second * 5)
-
-  select {
-  case s := <-c:
+  //handle the signal
+  go func() {
+    s := <-c
     fmt.Println(s.String())
-  default:
-    fmt.Println("No signal received till here.")
+    os.Exit()
   }
+  //Some task that takes 5 seconds to complete
+  time.Sleep(time.Second * 5)
+  fmt.Println("No signal received till here.")
 }
