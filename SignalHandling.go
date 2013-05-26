@@ -13,10 +13,17 @@ func main() {
   //handle the signal
   go func() {
     s := <-c
-    fmt.Println(s.String())
-    os.Exit()
+    fmt.Println("\nReceived ", s.String())
+    os.Exit(0)
+  }()
+
+  //Some code
+  fmt.Print("Press CTRL+C to Interrupt.")
+  for i:=0;i<25;i++ {
+    fmt.Print(".")
+    time.Sleep(time.Millisecond * 100)
   }
-  //Some task that takes 5 seconds to complete
-  time.Sleep(time.Second * 5)
-  fmt.Println("No signal received till here.")
+
+  //End of the Program
+  fmt.Println("\nNo signal received till here.")
 }
